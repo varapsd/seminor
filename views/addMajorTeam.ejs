@@ -1,0 +1,338 @@
+<html>
+
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {
+            height: 950px
+        }
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+
+            .row.content {
+                height: auto;
+            }
+        }
+
+        body,
+        div,
+        form,
+        input,
+        select {
+            padding: 0;
+            margin: 0;
+            outline: none;
+            font-family: Roboto, Arial, sans-serif;
+            font-size: 14px;
+            color: #666;
+            line-height: 22px;
+        }
+
+        h1,
+        h4 {
+            margin: 15px 0 4px;
+            font-weight: 400;
+        }
+
+        h4 {
+            margin: 20px 0 4px;
+            font-weight: 400;
+        }
+
+        span {
+            color: red;
+        }
+
+        .small {
+            font-size: 10px;
+            line-height: 18px;
+        }
+
+        .testbox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: inherit;
+            padding: 3px;
+        }
+
+        form {
+            width: 100%;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 2px 5px #ccc;
+        }
+
+        input {
+            width: calc(100% - 10px);
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            vertical-align: middle;
+        }
+
+        input:hover,
+        textarea:hover,
+        select:hover {
+            outline: none;
+            border: 1px solid #095484;
+            background: #e6eef7;
+        }
+
+        .title-block select,
+        .title-block input {
+            margin-bottom: 10px;
+        }
+
+        select {
+            padding: 7px 0;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            background: transparent;
+        }
+
+        select,
+        table {
+            width: 100%;
+        }
+
+        option {
+            background: #fff;
+        }
+
+        .day-visited,
+        .time-visited {
+            position: relative;
+        }
+
+        input[type="date"]::-webkit-inner-spin-button {
+            display: none;
+        }
+
+        input[type="time"]::-webkit-inner-spin-button {
+            margin: 2px 22px 0 0;
+        }
+
+        .day-visited i,
+        .time-visited i,
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            position: absolute;
+            top: 8px;
+            font-size: 20px;
+        }
+
+        .day-visited i,
+        .time-visited i {
+            right: 5px;
+            z-index: 1;
+            color: #a9a9a9;
+        }
+
+        [type="date"]::-webkit-calendar-picker-indicator {
+            right: 0;
+            z-index: 2;
+            opacity: 0;
+        }
+
+        .question-answer label {
+            display: block;
+            padding: 0 20px 10px 0;
+        }
+
+        .question-answer input {
+            width: auto;
+            margin-top: -2px;
+        }
+
+        th,
+        td {
+            width: 18%;
+            padding: 15px 0;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+            vertical-align: unset;
+            line-height: 18px;
+            font-weight: 400;
+            word-break: break-all;
+        }
+
+        .first-col {
+            width: 25%;
+            text-align: left;
+        }
+
+        textarea {
+            width: calc(100% - 6px);
+        }
+
+        .btn-block {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        button {
+            width: 150px;
+            padding: 10px;
+            border: none;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #095484;
+            font-size: 16px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0666a3;
+        }
+
+        @media (min-width: 568px) {
+            .title-block {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    </style>
+    <script>
+        function submitDetails(){
+           
+            var m1=document.getElementById("m1").value;
+            var m2=document.getElementById("m2").value;
+            var m3=document.getElementById("m3").value;
+            var m4=document.getElementById("m4").value;
+            var teamName=document.getElementById("teamName").value;
+            var project=document.getElementById("project").value;
+            var description=document.getElementById("description").value;
+            alert(project);
+           
+    var request = new XMLHttpRequest();
+   
+   var params= "member1="+m1+"&member2="+m2+"&member3="+m3+"&member4="+m4+"&teamName="+teamName+"&project="+project+"&description="+description;
+    request.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+       
+         alert(this.responseText);
+      
+      };
+    }
+    request.open('POST', 'http://localhost:8081/addMajorTeam', false);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.send(params);
+  }
+    </script>
+   
+</head>
+
+<body>
+        <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-2 sidenav">
+            </div>
+            <div class="col-sm-8 text-left">
+                <form>
+                    <h1>New Major Project team</h1>
+                
+
+                    </select>
+                    
+                    <h4>Member1<span>*</span></h4>
+                    
+                    <select id="m1">
+                       
+                            <% for (var i = 0; i <  major_students.length; i++) { %>
+                            <option value="<%= major_students[i] %>"><%= major_students[i] %></option>
+                            <% } %>
+                          
+                        
+                    </select>
+                    <h4>Member2<span>*</span></h4>
+                    <select id="m2">
+                        <% for (var i = 0; i <  major_students.length; i++) { %>
+                            <option value="<%= major_students[i] %>"><%= major_students[i] %></option>
+                            <% } %>
+                          
+                    </select>
+                    
+                    <h4>Member3<span>*</span></h4>
+                    <select id="m3">
+                        <% for (var i = 0; i <  major_students.length; i++) { %>
+                            <option value="<%= major_students[i] %>"><%= major_students[i] %></option>
+                            <% } %>
+                       
+                    </select >
+                    <h4>Member4<span></span></h4>
+                    <select id="m4">
+                        <% for (var i = 0; i <  major_students.length; i++) { %>
+                            <option value="<%= major_students[i] %>"><%= major_students[i] %></option>
+                            <% } %>
+                       <option value="None">None</option>
+                    </select>
+
+                    
+                    <h4>Team Name</h4><span>*</span>
+                    <input type="text" name="name" id="teamName" />
+                    <h4>Project title<span>*</span></h4>
+                    <input type="text" name="name" id="project" />
+                    <h4>Description of project</h4>
+                    <p class="small">Enter a small description of the project chosen</small>
+                        <textarea rows="5" id="description"></textarea>
+                        <div class="btn-block">
+                            <button class="btn btn-success" onclick="submitDetails()">Add team</button>
+                        </div>
+                </form>
+            </div>
+            <div class="col-sm-2 sidenav">
+                <div class="well">
+                </div>
+                <div class="well">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+</body>
+
+</html>
