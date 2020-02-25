@@ -41,6 +41,16 @@ app.get('/',(req,res)=>{
     res.render('login2.ejs')
 })
 
+/*app.get('/teacherHome',(req,res)=>{
+    
+
+   Teacher.findOne({teacherID:dict[req.sessionID]},(err,validTeacher)=>{
+    res.send(validTeacher.teacherID)
+    
+    
+})
+
+})*/
 app.get('/teacherHome',(req,res)=>{
     major_teams=[];
     member1=[];
@@ -73,6 +83,7 @@ app.get('/teacherHome',(req,res)=>{
 
     })
 })
+
 
 /*
 * handles post request to verify cresentials
@@ -116,15 +127,19 @@ app.get('/addMajorTeam',(req,res)=>{
 app.post('/addMajorTeam',(req,res)=>{
     
     Teacher.findOne({teacherID:dict[req.sessionID]},(err,validTeacher)=>{
-        validTeacher.major_students.push(req.body.member1);
+       validTeacher.major_students.push(req.body.member1);
         validTeacher.major_students.push(req.body.member2);
         validTeacher.major_students.push(req.body.member3);
         if(req.body.member4!="None"){
             validTeacher.major_students.push(req.body.member4);
         }
         validTeacher.major_teams.push(req.body.teamName);
-    })
-   
+        validTeacher.save();
+      
+
+
+})
+
     var newTeam = new Team(   
     {
         teamName:req.body.teamName,
