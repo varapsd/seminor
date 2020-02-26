@@ -41,49 +41,36 @@ app.get('/',(req,res)=>{
     res.render('login2.ejs')
 })
 
-/*app.get('/teacherHome',(req,res)=>{
-    
-
-   Teacher.findOne({teacherID:dict[req.sessionID]},(err,validTeacher)=>{
-    res.send(validTeacher.teacherID)
-    
-    
-})
-
-})*/
+let major_teams=[];
+let member1=[];
+let member2=[];
+let member3=[];
+let member4=[];
 app.get('/teacherHome',(req,res)=>{
-    major_teams=[];
-    member1=[];
-    member2=[];
-    member3=[];
-    member4=[];
     Teacher.findOne({teacherID:dict[req.sessionID]},(err,validTeacher)=>{
-        
-        major_teams=validTeacher.major_teams;
-    })
-    for(var i=0;i<major_teams.length;i++){
-        Team.findOne({teamName:major_teams[i].length},(err,validTeam)=>{
-            console.log("hi");
-            member1.push(validTeam.member1);
-            member2.push(validTeam.member2);
-            member3.push(validTeam.member3);
-            member4.push(validTeam.member4);
-
+    for(var i=0;i<validTeacher.major_teams.length;i++){
+            console.log("*");
+            major_teams.push(validTeacher.major_teams[i]);
+    }
+        for(var i=0;i<major_teams.length;i++){
+            Team.findOne({teamName:major_teams[i]},(err,validTeam)=>{
+                console.log("hi");
+                member1.push(validTeam.member1);
+                member2.push(validTeam.member2);
+                member3.push(validTeam.member3);
+                member4.push(validTeam.member4);
+                res.render("teacherHome.ejs",{
+            
+                    teamNames:major_teams,
+                    member1:member1,
+                    member2:member2,
+                    member3:member3,
+                    member4:member4,
+            })
         })
     }
-    res.render("teacherHome.ejs",{
-        
-        teamNames:major_teams,
-        member1:member1,
-        member2:member2,
-        member3:member3,
-        member4:member4,
-
-
-
-    })
 })
-
+})
 
 /*
 * handles post request to verify cresentials
@@ -118,12 +105,9 @@ app.get('/addMajorTeam',(req,res)=>{
     
 })
 
-
-
 /*
 * post req to add major project team
 */
-
 app.post('/addMajorTeam',(req,res)=>{
     
     Teacher.findOne({teacherID:dict[req.sessionID]},(err,validTeacher)=>{
@@ -135,11 +119,7 @@ app.post('/addMajorTeam',(req,res)=>{
         }
         validTeacher.major_teams.push(req.body.teamName);
         validTeacher.save();
-      
-
-
-})
-
+    })
     var newTeam = new Team(   
     {
         teamName:req.body.teamName,
@@ -158,12 +138,7 @@ app.post('/addMajorTeam',(req,res)=>{
 res.send("added");
 
 })
-
-
-
 app.get('/midsemEval',(req,res)=>{
-
-
 })
 
 /*
