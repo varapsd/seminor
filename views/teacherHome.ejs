@@ -123,6 +123,18 @@
         }
       }
     </style>
+    <script>
+      function midEval(i){
+        var param="<%= teamNames %>";
+
+        param1=param.split(',');
+        param2=param1[i];
+        alert(param2);
+        url="http://localhost:8081/midsemEval/"+param2;
+        
+        window.location=url;
+      }
+    </script>
   </head>
   <body>
     <nav class="navbar navbar-inverse">
@@ -158,22 +170,21 @@
           <td value="<%= member3[i] %>"><%= member3[i] %></td>
           <td value="<%= member4[i] %>"><%= member4[i] %></td>
 
-
-          <td><button type="button" class="btn btn-success" >Mid Evaluation</button></td>
+       
+          <td><button class="btn btn-success"  id="<%= i %>" onclick="midEval(this.id)">Mid Eval</button></td>
           <td><button type="button" class="btn btn-success">End Evaluation</button></td>
           <td><button type="button" class="btn btn-danger">Delete Team</button></td>
         </tr>
         <% } %>
       </tbody>
     </table>
-    <button class="btn btn-success" onclick="addTeam()">Add Team</button>
+    <button class="btn btn-success"  onclick="addTeam()">Add Team</button>
     <button type="button" class="btn btn-primary">Seminar</button>
     <button type="button" class="btn btn-primary">Minor Project</button>
   </body>  
   <script>
     function addTeam(){
       window.location = "http://localhost:8081/addMajorTeam";
-
     }
   </script>
 </html>

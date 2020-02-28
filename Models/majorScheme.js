@@ -2,8 +2,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var majorSchema=mongoose.Schema({
-    feilds:{
+    fields:{
         type:[String]
     }
 
 })
+
+// Export Team model
+module.exports = {
+    majorScheme:mongoose.model('majorSchema', majorSchema,"majorScheme"),
+}

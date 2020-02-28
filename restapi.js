@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var url = "mongodb://localhost:27017/";
 var Team=require("./Models/team").Team;
 dict={}
-
+majorScheme=require('./Models/majorScheme').majorScheme
 app.use(session({
     secret: 'ssshhhhh',
     // create new redis store.
@@ -23,7 +23,6 @@ app.use(session({
     saveUninitialized: true,
     resave: false
 }));
-
 
 app.set('view engine', 'ejs');
 mongoose.connect('mongodb://localhost:27017/minor_final');
@@ -138,7 +137,27 @@ app.post('/addMajorTeam',(req,res)=>{
 res.send("added");
 
 })
-app.get('/midsemEval',(req,res)=>{
+
+
+
+app.get('/midsemEval/:teamName',(req,res)=>{
+    console.log(req.params.teamName);
+    Team.findOne({teamName:req.params.teamName},(err,validTeam)=>{
+        var member1=validTeam.member1;
+        var member2=validTeam.member2;
+        var member3=validTeam.member3;
+        var member4=validTeam.member4;
+        majorScheme.findOne({},(err,validmajorScheme)=>{
+            res.render("majorMidsem.ejs",{
+                member1:member1,
+                member2:member2,
+                member3:member3,
+                member4:member4,
+                fields:validmajorScheme.fields
+
+            })
+        })
+    })
 })
 
 /*
