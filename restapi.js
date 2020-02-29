@@ -23,23 +23,19 @@ app.use(session({
     saveUninitialized: true,
     resave: false
 }));
-
 app.set('view engine', 'ejs');
 mongoose.connect('mongodb://localhost:27017/minor_final');
-
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection error: '));
 db.once('open', function(callback) {
         console.log('Successfully connected to MongoDB.');
 });
-
 /*
 home sends login page
 */
 app.get('/',(req,res)=>{
     res.render('login2.ejs')
 })
-
 let major_teams=[];
 let member1=[];
 let member2=[];
@@ -92,16 +88,12 @@ app.post('/teacherLogin',(req,res)=>{
 /*
 * send a for to add a new team
 */
-
 app.get('/addMajorTeam',(req,res)=>{
     Teacher.findOne({teacherID:dict[req.sessionID]},(err,validTeacher)=>{
         res.render("addMajorTeam.ejs",{
             major_students:validTeacher.major_students,
         })
     })
-    
-
-    
 })
 
 /*
@@ -129,19 +121,18 @@ app.post('/addMajorTeam',(req,res)=>{
         project:req.body.project,
         description:req.body.description
     });
- 
-    // save model to database
-    newTeam.save(function (err, team) {
+     newTeam.save(function (err, team) {
       if (err) return console.error(err);
     });
 res.send("added");
 
 })
 
-
+/*
+* form for midsem evaluation of major project
+*/
 
 app.get('/midsemEval/:teamName',(req,res)=>{
-    console.log(req.params.teamName);
     Team.findOne({teamName:req.params.teamName},(err,validTeam)=>{
         var member1=validTeam.member1;
         var member2=validTeam.member2;
@@ -149,6 +140,28 @@ app.get('/midsemEval/:teamName',(req,res)=>{
         var member4=validTeam.member4;
         majorScheme.findOne({},(err,validmajorScheme)=>{
             res.render("majorMidsem.ejs",{
+                member1:member1,
+                member2:member2,
+                member3:member3,
+                member4:member4,
+                fields:validmajorScheme.fields
+
+            })
+        })
+    })
+})
+
+/*
+* form for endsem evaluation of major project
+*/
+app.get('/endsemEval/:teamName',(req,res)=>{
+    Team.findOne({teamName:req.params.teamName},(err,validTeam)=>{
+        var member1=validTeam.member1;
+        var member2=validTeam.member2;
+        var member3=validTeam.member3;
+        var member4=validTeam.member4;
+        majorScheme.findOne({},(err,validmajorScheme)=>{
+            res.render("majorEndsem.ejs",{
                 member1:member1,
                 member2:member2,
                 member3:member3,

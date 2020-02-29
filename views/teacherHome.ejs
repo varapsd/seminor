@@ -126,12 +126,16 @@
     <script>
       function midEval(i){
         var param="<%= teamNames %>";
-
         param1=param.split(',');
         param2=param1[i];
-        alert(param2);
         url="http://localhost:8081/midsemEval/"+param2;
-        
+        window.location=url;
+      }
+      function endEval(i){
+        var param="<%= teamNames %>";
+        param1=param.split(',');
+        param2=param1[i];
+        url="http://localhost:8081/endsemEval/"+param2;
         window.location=url;
       }
     </script>
@@ -172,7 +176,7 @@
 
        
           <td><button class="btn btn-success"  id="<%= i %>" onclick="midEval(this.id)">Mid Eval</button></td>
-          <td><button type="button" class="btn btn-success">End Evaluation</button></td>
+          <td><button  id="<%= i %>"  class="btn btn-success" onclick="endEval(this.id)">End Evaluation</button></td>
           <td><button type="button" class="btn btn-danger">Delete Team</button></td>
         </tr>
         <% } %>

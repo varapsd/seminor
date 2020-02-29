@@ -13,6 +13,9 @@ var teamSchema = mongoose.Schema({
     member3:{
         type: String
     },
+    member4:{
+        type: String
+    },
     teamType:{
         type:String
     },
