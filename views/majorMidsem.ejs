@@ -15,6 +15,92 @@
     text-align: center;
 }
 </style>
+<script>
+    function submitScore1(){
+        let marks1=document.getElementsByName("marks1");
+        let student ="<%= member1 %>";
+        var total=parseInt(0,10);
+        for(var i=0;i<marks1.length;i++){
+            total=total+parseInt(marks1[i].value,10);
+        }
+        var request = new XMLHttpRequest();
+        var params = "student=" + student + "&total=" + total;
+        request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
+            if (this.responseText == "success!") {
+            alert("Marks updated!")
+            }
+        };
+        }
+        request.open('POST', 'http://localhost:8081/addMidsemscore', true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.send(params)
+}
+function submitScore2(){
+        let marks1=document.getElementsByName("marks2");
+        let student ="<%= member2 %>";
+        var total=parseInt(0,10);
+        for(var i=0;i<marks1.length;i++){
+            total=total+parseInt(marks1[i].value,10);
+        }
+        var request = new XMLHttpRequest();
+        var params = "student=" + student + "&total=" + total;
+        request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
+            if (this.responseText == "success!") {
+            alert("Marks updated!")
+            }
+        };
+        }
+        request.open('POST', 'http://localhost:8081/addMidsemscore', true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.send(params)
+}
+function submitScore3(){
+        let marks1=document.getElementsByName("marks3");
+        let student ="<%= member3 %>";
+        var total=parseInt(0,10);
+        for(var i=0;i<marks1.length;i++){
+            total=total+parseInt(marks1[i].value,10);
+        }
+        var request = new XMLHttpRequest();
+        var params = "student=" + student + "&total=" + total;
+        request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
+            if (this.responseText == "success!") {
+            alert("Marks updated!")
+            }
+        };
+        }
+        request.open('POST', 'http://localhost:8081/addMidsemscore', true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.send(params)
+}
+function submitScore4(){
+        let marks1=document.getElementsByName("marks4");
+        let student ="<%= member4 %>";
+        var total=parseInt(0,10);
+        for(var i=0;i<marks1.length;i++){
+            total=total+parseInt(marks1[i].value,10);
+        }
+        var request = new XMLHttpRequest();
+        var params = "student=" + student + "&total=" + total;
+        request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
+            if (this.responseText == "success!") {
+            alert("Marks updated!")
+            }
+        };
+        }
+        request.open('POST', 'http://localhost:8081/addMidsemscore', true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.send(params)
+}
+</script>
 <body>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -30,47 +116,57 @@
         <h4 style="text-align: center;">Member1- <%= member1 %></h4>
         <% for (var i = 0; i <  fields.length; i++) { %>
             <h4><%= fields[i] %><h4>
-            <input type="text" /><br />
+            <input type="number" name="marks1" /><br />
         <% } %>
         <div class="form-group">
             <h4 for="comment">Comment:<h4>
             <textarea class="form-control" rows="5" id="comment"></textarea>
+        </div>
+        <div class="wrapper">
+            <button class="btn btn-success" onclick="submitScore1()">Submit</button>
         </div>
         <br><br>
         <h4 style="text-align: center;">Member2- <%= member2 %></h4>
         <% for (var i = 0; i <  fields.length; i++) { %>
             <h4><%= fields[i] %><h4>
-            <input type="text" /><br />
-        <% } %>
+                <input type="number" name="marks2" /><br />
+                <% } %>
         <div class="form-group">
             <h4 for="comment">Comment:<h4>
             <textarea class="form-control" rows="5" id="comment"></textarea>
           </div>
+          <div class="wrapper">
+            <button class="btn btn-success" onclick="submitScore2()">Submit</button>
+        </div>
         <br><br>
         <h4 style="text-align: center;">Member3- <%= member3 %></h4>
         <% for (var i = 0; i <  fields.length; i++) { %>
             <h4><%= fields[i] %><h4>
-            <input type="text" /><br />
-        <% } %>
+                <input type="number" name="marks3" /><br />
+                <% } %>
         <div class="form-group">
             <h4 for="comment">Comment:<h4>
             <textarea class="form-control" rows="5" id="comment"></textarea>
           </div>
+          <div class="wrapper">
+            <button class="btn btn-success" onclick="submitScore3()">Submit</button>
+        </div>
         <br><br>
         <% if(member4!="None") { %>
             <h4 style="text-align: center;">Member4- <%= member4 %></h4>
             <% for (var i = 0; i <  fields.length; i++) { %>
                 <h4><%= fields[i] %><h4>
-                <input type="text" /><br />
-            <% } %>
+                    <input type="number" name="marks4" /><br />
+                    <% } %>
             <div class="form-group">
                 <h4 for="comment">Comment:<h4>
                 <textarea class="form-control" rows="5" id="comment"></textarea>
               </div>
-        <% } %>
+        
         <div class="wrapper">
-            <button class="btn btn-success">Submit</button>
+            <button class="btn btn-success" onclick="submitScore4()">Submit</button>
         </div>
+        <% } %>
     </form>
 </body>
 </html>

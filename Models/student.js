@@ -7,11 +7,23 @@ var studentSchema= mongoose.Schema({
     roll:{
         type: String
     },
-    midsemTotal:{
+    teamFormed:{
+        type:Boolean
+    },
+    midsemTeacher:{
+        type:Number
+    },
+    midsemGuest:{
+        type:Number
+    },
+    endsemTeacher:{
         type: Number
     },
-    endsemTotal:{
+    endsemGuest:{
         type: Number
+    },
+    grade:{
+        type:String
     },
     studentType:{
         type:String

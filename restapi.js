@@ -7,6 +7,7 @@ var redisStore = require('connect-redis')(session);
 var client  = redis.createClient();
 TeacherLogin=require("./Models/teacherLogin").TeacherLogin;
 Teacher=require("./Models/teacher").Teacher;
+Student=require("./Models/student").Student;
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 const bodyParser = require('body-parser');
@@ -41,30 +42,46 @@ let member1=[];
 let member2=[];
 let member3=[];
 let member4=[];
+
+
+/*
+* handles request to diaplay teachers home page. Teachers home page contains major project teams.
+*/
+
 app.get('/teacherHome',(req,res)=>{
     Teacher.findOne({teacherID:dict[req.sessionID]},(err,validTeacher)=>{
-    for(var i=0;i<validTeacher.major_teams.length;i++){
-            console.log("*");
-            major_teams.push(validTeacher.major_teams[i]);
-    }
-        for(var i=0;i<major_teams.length;i++){
-            Team.findOne({teamName:major_teams[i]},(err,validTeam)=>{
-                console.log("hi");
-                member1.push(validTeam.member1);
-                member2.push(validTeam.member2);
-                member3.push(validTeam.member3);
-                member4.push(validTeam.member4);
-                res.render("teacherHome.ejs",{
-            
-                    teamNames:major_teams,
-                    member1:member1,
-                    member2:member2,
-                    member3:member3,
-                    member4:member4,
-            })
-        })
-    }
-})
+        if(validTeacher.major_teams.length==0){
+            res.render("teacherHome.ejs",{
+                teamNames:major_teams,
+                member1:member1,
+                member2:member2,
+                member3:member3,
+                member4:member4,
+                })
+        }
+    else{ 
+                for(var i=0;i<validTeacher.major_teams.length;i++){
+                    major_teams.push(validTeacher.major_teams[i]);
+                }
+                for(var i=0;i<major_teams.length;i++){
+                    Team.findOne({teamName:major_teams[i]},(err,validTeam)=>{
+                        member1.push(validTeam.member1);
+                        member2.push(validTeam.member2);
+                        member3.push(validTeam.member3);
+                        member4.push(validTeam.member4);
+                        if(member4.length==major_teams.length){
+                              res.render("teacherHome.ejs",{
+                                teamNames:major_teams,
+                                member1:member1,
+                                member2:member2,
+                                member3:member3,
+                                member4:member4,
+                            })
+                        }         
+                    })
+                }
+        }
+    })
 })
 
 /*
@@ -88,11 +105,24 @@ app.post('/teacherLogin',(req,res)=>{
 /*
 * send a for to add a new team
 */
+let freeMajorStudents=[]
+let majorVisited=0;
 app.get('/addMajorTeam',(req,res)=>{
     Teacher.findOne({teacherID:dict[req.sessionID]},(err,validTeacher)=>{
-        res.render("addMajorTeam.ejs",{
-            major_students:validTeacher.major_students,
-        })
+        for(var i=0;i<validTeacher.major_students.length;i++){
+            Student.findOne({roll:validTeacher.major_students[i]},(err,validStudent)=>{
+                majorVisited=majorVisited+1;
+                if(validStudent.teamFormed==false){
+                    freeMajorStudents.push(validStudent.roll);
+
+                }
+            })
+        }
+        if(majorVisited==validTeacher.major_students.length){
+            res.render("addMajorTeam.ejs",{
+                major_students:freeMajorStudents,
+            })
+        }
     })
 })
 
@@ -109,7 +139,30 @@ app.post('/addMajorTeam',(req,res)=>{
             validTeacher.major_students.push(req.body.member4);
         }
         validTeacher.major_teams.push(req.body.teamName);
-        validTeacher.save();
+         validTeacher.save();
+        Student.findOne({roll:req.body.member1},(err,validStudent)=>{
+            validStudent.teamFormed=true;
+             validStudent.save()
+
+        })
+        Student.findOne({roll:req.body.member2},(err,validStudent)=>{
+            validStudent.teamFormed=true;
+             validStudent.save()
+
+        })
+        Student.findOne({roll:req.body.member3},(err,validStudent)=>{
+            validStudent.teamFormed=true;
+             validStudent.save()
+
+        })
+        if(req.body.member4!="None"){
+            Student.findOne({roll:req.body.member4},(err,validStudent)=>{
+                validStudent.teamFormed=true;
+                 validStudent.save()
+    
+            })
+
+        }
     })
     var newTeam = new Team(   
     {
@@ -148,6 +201,17 @@ app.get('/midsemEval/:teamName',(req,res)=>{
 
             })
         })
+    })
+})
+
+app.post('/addMidsemscore',(req,res)=>{
+    Student.findOne({roll:req.body.student},(err,validStudent)=>{
+        if(err)console.log(err);
+        else{
+            validStudent.midsemTeacher=req.body.total;
+            validStudent.save();
+            res.send("success!")
+        }
     })
 })
 
