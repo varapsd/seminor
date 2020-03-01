@@ -215,6 +215,17 @@ app.post('/addMidsemscore',(req,res)=>{
     })
 })
 
+app.post('/addEndsemscore',(req,res)=>{
+    Student.findOne({roll:req.body.student},(err,validStudent)=>{
+        if(err)console.log(err);
+        else{
+            validStudent.endsemTeacher=req.body.total;
+            validStudent.save();
+            res.send("success!")
+        }
+    })
+})
+
 /*
 * form for endsem evaluation of major project
 */
