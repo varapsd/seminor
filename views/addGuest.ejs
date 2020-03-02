@@ -1,0 +1,56 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="utf-8">
+</head>
+<style>
+    .wrapper {
+    text-align: center;
+}
+</style>
+<script>
+    function generatePassword(){
+        var guest=document.getElementById("guestName").value;
+        var guestPass=Math.floor(Math.random() * 100) + 1+"guest";
+        document.getElementById("newPass").innerHTML=guestPass;
+        var request = new XMLHttpRequest();
+        var params = "guest=" +guest + "&guestPass=" + guestPass;
+        request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
+            if (this.responseText == "Success") {
+                alert("guest added!")
+            }
+        };
+        }
+        request.open('POST', 'http://localhost:8081/addGuest', true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.send(params)
+
+    }
+</script>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+        </div>
+    </div>
+</nav>
+<br><br>
+<h3 style="text-align: center;"><b>Add a new guest Login</b></h3>
+
+<form>
+    <h4>Guest Name:</h4><input type="text" id="guestName"><br><br><br>
+    <button style="width: 30%;" class="btn btn-success" onclick="generatePassword()">Generate Password</button>
+</form>
+<h2>New Password generated is:</h2> <h2 id="newPass"></h2>
+
+<br><br>
+</html>
