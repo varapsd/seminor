@@ -286,7 +286,13 @@ app.get('/addGuest', (req, res) => {
     res.render("addGuest.ejs");
 })
 
+app.get('/assignStudent',(req,res)=>{
+    res.render("assignStudent.ejs");
+})
 
+/*
+* handle adding a new guest
+*/
 app.post('/addGuest', (req, res) => {
     var newGuest = new GuestLogin({
         guestName: req.body.guest,
@@ -301,6 +307,11 @@ app.post('/addGuest', (req, res) => {
 
 
 })
+
+app.get('/setupCourse',(req,res)=>{
+    res.render("courseStructure.ejs")
+})
+
 /*
 * create a server to run on port 8081
 */

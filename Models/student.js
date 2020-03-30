@@ -7,6 +7,9 @@ var studentSchema= mongoose.Schema({
     roll:{
         type: String
     },
+    batch:{
+        type: String
+    },
     teamFormed:{
         type:Boolean
     },
