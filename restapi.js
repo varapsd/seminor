@@ -8,6 +8,7 @@ var client = redis.createClient();
 TeacherLogin = require("./Models/teacherLogin").TeacherLogin;
 Teacher = require("./Models/teacher").Teacher;
 Student = require("./Models/student").Student;
+courseDetails=require("./Models/courseDetails").courseDetails;
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 const bodyParser = require('body-parser');
@@ -311,6 +312,27 @@ app.post('/addGuest', (req, res) => {
 app.get('/setupCourse',(req,res)=>{
     res.render("courseStructure.ejs")
 })
+
+app.get('/setCourseDetails',(req,res)=>{
+    res.render("courseDetails.ejs")
+})
+
+app.post('/setCourseDetails',(req,res)=>{
+    var newCourse = new courseDetails(
+        {
+            courseName: req.body.name,
+            courseCode: req.body.code,
+            courseInstructor: req.body.instructor,
+            courseCredits: req.body.credits,
+            hoursPerWeek: req.body.hours
+        });
+    newCourse.save(function (err, team) {
+        if (err) return console.error(err);
+    });
+    res.send("added");
+    
+})
+
 
 /*
 * create a server to run on port 8081

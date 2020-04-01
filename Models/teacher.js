@@ -8,11 +8,8 @@ var teacherSchema = mongoose.Schema({
         type: String
     },
     major_students:[String],
-    minor_students:[String],
-    seminar_students:[String],
     major_teams:[String],
-    minor_teams:[String],
-    seminar_teams:[String],
+    pannel_students:[String]
 });
 // Export Teacher model
  module.exports = {

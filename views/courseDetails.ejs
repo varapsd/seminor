@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <style>
+              .heading{
+                    background : #7FFF00;
+                    height : 1.5em;
+                }
+
+        </style>
+    
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+<script>
+    function saveCourseDetails(){
+        var request = new XMLHttpRequest();
+        var code=document.getElementById("code").value;
+        var instructor=document.getElementById("instructor").value;
+        var hours=document.getElementById("hours").value;
+        var credits=document.getElementById("credits").value;
+        var name=document.getElementById("name").value;
+        var params= "code="+code+"&name="+name+"&credits="+credits+"&hours="+hours+"&instructor="+instructor;
+        request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
+        };
+        }
+        request.open('POST', 'http://localhost:8081/setCourseDetails', false);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.send(params);
+    }
+</script>
+
+
+<body>
+
+    <div class="heading" style="margin-bottom:0; height:180px;" id='heading'>
+      <div style="float:left;padding:5% 0% 0% 5%"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk_ttdDqclrIguV2jKxVVYVzM0JrC8KOPzxdcjCzw4Tkgakal6UQ&s" style="height:80px;border-radius:50%;"></div>
+    <div style="float: left; padding: 5% 0% 0% 0%; margin:0;">
+      <h1> <b>Dept of IT-New Course</b></h1>
+    </div>
+     
+    </div>
+    
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    </nav>
+    <br><br><br><br>
+    <label>Course Name:</label><br>
+    <input type="text" id="name"><br><br>
+    <label>Course Code:</label><br>
+    <input type="text" id="code"><br><br>
+    <label>Course Instructor:</label><br>
+    <input type="text" id="instructor"><br>
+    <label>Course Credits:</label><br><br>
+    <input type="number" id="credits"><br>
+    <label>Weeks Per Hour:</label><br>
+    <input type="number" id="hours"><br>
+    <button type="submit" onclick="saveCourseDetails()">Submit</button>
+</body>
+</html>

@@ -16,10 +16,28 @@ var studentSchema= mongoose.Schema({
     midsemTeacher:{
         type:Number
     },
+    midsemPannel1:{
+        type:Number
+    },
+    midsemPannel2:{
+        type:Number
+    },
+    midsemPannel3:{
+        type:Number
+    },
     midsemGuest:{
         type:Number
     },
     endsemTeacher:{
+        type: Number
+    },
+    endsemPannel1:{
+        type: Number
+    },
+    endsemPannel2:{
+        type: Number
+    },
+    endsemPannel3:{
         type: Number
     },
     endsemGuest:{
@@ -28,9 +46,6 @@ var studentSchema= mongoose.Schema({
     grade:{
         type:String
     },
-    studentType:{
-        type:String
-    }
 });
 // Export Team model
  module.exports = {
