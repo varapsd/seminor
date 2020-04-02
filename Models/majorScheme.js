@@ -10,5 +10,5 @@ var majorSchema=mongoose.Schema({
 
 // Export Team model
 module.exports = {
-    majorScheme:mongoose.model('majorSchema', majorSchema,"majorScheme"),
+    majorScheme:mongoose.model('majorScheme', majorSchema,"majorScheme"),
 }

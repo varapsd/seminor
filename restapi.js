@@ -18,6 +18,8 @@ var url = "mongodb://localhost:27017/";
 var Team = require("./Models/team").Team;
 var GuestLogin = require("./Models/guestLogin").GuestLogin;
 var AdminLogin = require("./Models/adminLogin").AdminLogin;
+var evaluators=require("./Models/evaluators").evaluators;
+var majorScheme=require("./Models/majorScheme").majorScheme;
 dict = {}
 majorScheme = require('./Models/majorScheme').majorScheme
 app.use(session({
@@ -310,7 +312,7 @@ app.post('/addGuest', (req, res) => {
 })
 
 app.get('/setupCourse',(req,res)=>{
-    res.render("courseStructure.ejs")
+    res.render("coursestruct2.ejs")
 })
 
 app.get('/setCourseDetails',(req,res)=>{
@@ -333,7 +335,48 @@ app.post('/setCourseDetails',(req,res)=>{
     
 })
 
+app.get('/setEvaluators',(req,res)=>{
+    res.render("step2.ejs");
+})
 
+app.post('/setEvaluators',(req,res)=>{
+    var newEvaluators = new evaluators(
+        {
+            guideWeightage: req.body.gw,
+            pannelNum:req.body.np,
+            pannelWeightage:req.body.pw,
+            taNum:req.body.nt,
+            taWeightage:req.body.tw
+        });
+        newEvaluators.save(function (err, team) {
+        if (err) return console.error(err);
+    });
+    res.send("added");
+
+})
+
+app.get('/setEvalScheme',(req,res)=>{
+    res.render("step3.ejs")
+})
+
+app.post('/setEvalScheme',(req,res)=>{
+    req_fields=[]
+    req_fields.push(req.body.f1);
+    req_fields.push(req.body.f2);
+    req_fields.push(req.body.f3);
+    req_fields.push(req.body.f4);
+    req_fields.push(req.body.f5);
+    req_fields.push(req.body.f6);
+    var newEvalScheme = new majorScheme(
+        {
+            fields:req_fields,
+        });
+        newEvalScheme.save(function (err, team) {
+        if (err) return console.error(err);
+    });
+    res.send("added");
+
+})
 /*
 * create a server to run on port 8081
 */
