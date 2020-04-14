@@ -320,18 +320,19 @@ app.get('/setCourseDetails',(req,res)=>{
 })
 
 app.post('/setCourseDetails',(req,res)=>{
-    var newCourse = new courseDetails(
-        {
-            courseName: req.body.name,
-            courseCode: req.body.code,
-            courseInstructor: req.body.instructor,
-            courseCredits: req.body.credits,
-            hoursPerWeek: req.body.hours
+    courseDetails.findOne({},(err,newCourse)=>{
+            newCourse.courseName= req.body.name,
+            newCourse.courseCode= req.body.code,
+            newCourse.courseInstructor= req.body.instructor,
+            newCourse.courseCredits= req.body.credits,
+            newCourse.hoursPerWeek= req.body.hours
+            newCourse.save(function (err, team) {
+                if (err) return console.error(err);
+            });
+            res.send("added");
         });
-    newCourse.save(function (err, team) {
-        if (err) return console.error(err);
-    });
-    res.send("added");
+
+    
     
 })
 
@@ -340,18 +341,19 @@ app.get('/setEvaluators',(req,res)=>{
 })
 
 app.post('/setEvaluators',(req,res)=>{
-    var newEvaluators = new evaluators(
-        {
-            guideWeightage: req.body.gw,
-            pannelNum:req.body.np,
-            pannelWeightage:req.body.pw,
-            taNum:req.body.nt,
-            taWeightage:req.body.tw
-        });
+    evaluators.findOne({},(err,newEvaluators)=>{
+    
+        newEvaluators.guideWeightage= req.body.gw,
+        newEvaluators.pannelNum=req.body.np,
+        newEvaluators.pannelWeightage=req.body.pw,
+        newEvaluators.taNum=req.body.nt,
+        newEvaluators.taWeightage=req.body.tw
+        
         newEvaluators.save(function (err, team) {
         if (err) return console.error(err);
-    });
+    })
     res.send("added");
+})
 
 })
 
@@ -367,15 +369,17 @@ app.post('/setEvalScheme',(req,res)=>{
     req_fields.push(req.body.f4);
     req_fields.push(req.body.f5);
     req_fields.push(req.body.f6);
-    var newEvalScheme = new majorScheme(
-        {
-            fields:req_fields,
-        });
+    majorScheme.findOne({},(err,newEvalScheme)=>{
+        newEvalScheme.fields=req_fields,
         newEvalScheme.save(function (err, team) {
-        if (err) return console.error(err);
+            if (err) return console.error(err);
+        });
+        res.send("added");
     });
-    res.send("added");
+})
 
+app.get('/assign',(req,res)=>{
+    res.render("step4.ejs")
 })
 /*
 * create a server to run on port 8081

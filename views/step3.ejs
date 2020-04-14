@@ -43,9 +43,11 @@
         function step2() {
             window.location = "http://localhost:8081/setEvaluators";
         }
-
+        function step3() {
+            window.location = "http://localhost:8081/setEvalScheme";
+        }
         function step4() {
-            window.location = "courseStruct4.html";
+            window.location = "http://localhost:8081/assign";
         }
         function setEvalScheme(){
             var request = new XMLHttpRequest();
@@ -117,22 +119,16 @@
                         </div>
 
                     </li>
-                    <li class="step active" style="background:#00FFFF;">
-                        <div class="step-title waves-effect waves-dark">Step 3<p>Specify mid sem evaluation scheme</p>
+                    <li class="step" style="background:#00FFFF;">
+                        <div class="step-title waves-effect waves-dark">Step 3<p>Specify evaluation scheme</p>
                         </div>
 
                     </li>
                     <li class="step" onclick="step4()">
-                        <div class="step-title waves-effect waves-dark">Step 4<p>Specify end sem evaluation scheme</p>
+                        <div class="step-title waves-effect waves-dark">Step 4<p>Assign guides and pannel members</p>
                         </div>
 
                     </li>
-                    <li class="step" onclick="step5()">
-                        <div class="step-title waves-effect waves-dark">Step 5<p>Assign guides and pannel members</p>
-                        </div>
-
-                    </li>
-
                 </ul>
             </form>
         </div>
