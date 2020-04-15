@@ -384,6 +384,32 @@ app.get('/assign',(req,res)=>{
 /*
 * create a server to run on port 8081
 */
+
+
+app.get('/assignGuides',(req,res)=>{
+    teachers=[]
+    students=[]
+    Teacher.find({},(err,Teachers)=>{
+        for (var i = 0; i < Teachers.length; i++){
+            teachers.push(Teachers[i].teacherName)
+        }
+        Student.find({},(err,Students)=>{
+            for (var i = 0; i < Students.length; i++){
+               newStud={
+                   "name":Students[i].studentName,
+                   "roll":Students[i].roll
+               }
+               students.push(newStud)
+            }
+            res.render("assignGuides.ejs",{teachers:teachers,students:students})
+        })
+
+    })
+
+
+})
+
+
 var server = app.listen(8081, function () {
     var host = server.address().address
     var port = server.address().port
