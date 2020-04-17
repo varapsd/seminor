@@ -410,6 +410,30 @@ app.get('/assignGuides',(req,res)=>{
 })
 
 
+
+
+
+
+
+
+
+
+
+
+app.get('/assignPannel',(req,res)=>{
+    teachers=[]
+    Teacher.find({},(err,Teachers)=>{
+        for (var i = 0; i < Teachers.length; i++){
+           newTeacher={
+               "name":Teachers[i].teacherName,
+               "id":Teachers[i].teacherID
+           }
+           teachers.push(newTeacher)
+        }
+        res.render("assignPannel.ejs",{teachers:teachers})
+    })
+    
+})
 var server = app.listen(8081, function () {
     var host = server.address().address
     var port = server.address().port
