@@ -7,7 +7,7 @@ var teacherSchema = mongoose.Schema({
     teacherName:{
         type: String
     },
-    major_students:[String],
+    major_students:{type:[String]},
     major_teams:[String],
     pannel_students:[String]
 });

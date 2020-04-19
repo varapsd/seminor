@@ -405,11 +405,37 @@ app.get('/assignGuides',(req,res)=>{
         })
 
     })
-
-
 })
 
+app.post('/assignGuides',(req,res)=>{
+    students=req.body.students.split(',')
+    var over=-1;
+    Teacher.findOne({teacherName:req.body.teacher},(err,validTeacher)=>{
+        if(err!=null)console.log(err)
+        for(var i=0;i<students.length;i++){
+            students[i]=students[i].trim()
+           
+            validTeacher.major_students.push(students[i])
+            console.log(students[1]=="161IT113-C")
+            Student.findOne({roll:students[i]},(err,validStudent)=>{
+                if(err!=null)console.log(err)
+                console.log(validStudent.studentName)
+                console.log(i)
+                validStudent.guideName=req.body.teacher;
+                if(i==students.length-1){
+                    console.log("*")
+                    over=1;
+                }
+            })
+            
+        }
 
+    })
+        if(over==1){
+            console.log("heeyy")
+            res.send("success!")
+        }
+})
 
 
 

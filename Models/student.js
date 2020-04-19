@@ -10,6 +10,9 @@ var studentSchema= mongoose.Schema({
     batch:{
         type: String
     },
+    guideName:{
+        type:String
+    },
     teamFormed:{
         type:Boolean
     },
