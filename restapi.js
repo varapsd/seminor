@@ -1,36 +1,38 @@
 var express = require('express')
 var mongoose = require('mongoose')
 var app = express();
-var redis = require("redis");
+//var redis = require("redis");
 var session = require('express-session');
-var redisStore = require('connect-redis')(session);
-var client = redis.createClient();
+//var redisStore = require('connect-redis')(session);
+//var client = redis.createClient();
 TeacherLogin = require("./Models/teacherLogin").TeacherLogin;
 Teacher = require("./Models/teacher").Teacher;
 Student = require("./Models/student").Student;
 courseDetails=require("./Models/courseDetails").courseDetails;
-var cookieParser = require('cookie-parser');
-app.use(cookieParser());
+//var cookieParser = require('cookie-parser');
+//app.use(cookieParser());
 const bodyParser = require('body-parser');
 var path = require('path')
 app.use(bodyParser.urlencoded({ extended: true }));
-var url = "mongodb://localhost:27017/";
+//var url = "mongodb://localhost:27017/";
 var Team = require("./Models/team").Team;
 var GuestLogin = require("./Models/guestLogin").GuestLogin;
 var AdminLogin = require("./Models/adminLogin").AdminLogin;
 var evaluators=require("./Models/evaluators").evaluators;
 var majorScheme=require("./Models/majorScheme").majorScheme;
-dict = {}
+//dict = {}
 majorScheme = require('./Models/majorScheme').majorScheme
 app.use(session({
     secret: 'ssshhhhh',
     // create new redis store.
-    store: new redisStore({ host: 'localhost', port: 6379, client: client, ttl: 260 }),
+    //store: new redisStore({ host: 'localhost', port: 6379, client: client, ttl: 260 }),
     saveUninitialized: true,
     resave: false
 }));
 app.set('view engine', 'ejs');
-mongoose.connect('mongodb://localhost:27017/minor_final');
+
+var url = "mongodb://vara1:vara1@mycluster-shard-00-00-zucif.gcp.mongodb.net:27017,mycluster-shard-00-01-zucif.gcp.mongodb.net:27017,mycluster-shard-00-02-zucif.gcp.mongodb.net:27017/minor_final?ssl=true&replicaSet=myCluster-shard-0&authSource=admin&retryWrites=true&w=majority";
+mongoose.connect(url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection error: '));
 db.once('open', function (callback) {
@@ -54,7 +56,7 @@ let member4 = [];
 */
 
 app.get('/teacherHome', (req, res) => {
-    Teacher.findOne({ teacherID: dict[req.sessionID] }, (err, validTeacher) => {
+    Teacher.findOne({ teacherID: req.session.ID }, (err, validTeacher) => {
         if (validTeacher.major_teams.length == 0) {
             res.render("teacherHome.ejs", {
                 teamNames: major_teams,
@@ -99,8 +101,8 @@ app.post('/teacherLogin', (req, res) => {
             console.log("Invalid TeacherID or Password");
         }
         else {
-            client.set(req.sessionID, validTeacher.tId);
-            dict[req.sessionID] = validTeacher.tId;
+            //client.set(req.sessionID, validTeacher.tId);
+            req.session.ID = validTeacher.tId;
             res.send("Success");
         }
     })
@@ -117,8 +119,8 @@ app.post('/adminLogin', (req, res) => {
             console.log("Invalid ID or Password");
         }
         else {
-            client.set(req.sessionID, validAdmin.aId);
-            dict[req.sessionID] = validAdmin.aId;
+            //client.set(req.sessionID, validAdmin.aId);
+            req.session.ID = validAdmin.aId;
             res.send("Success");
         }
     })
@@ -135,7 +137,7 @@ app.get('/adminHome', (req, res) => {
 let freeMajorStudents = []
 let majorVisited = 0;
 app.get('/addMajorTeam', (req, res) => {
-    Teacher.findOne({ teacherID: dict[req.sessionID] }, (err, validTeacher) => {
+    Teacher.findOne({ teacherID: req.session.ID }, (err, validTeacher) => {
         for (var i = 0; i < validTeacher.major_students.length; i++) {
             Student.findOne({ roll: validTeacher.major_students[i] }, (err, validStudent) => {
                 majorVisited = majorVisited + 1;
@@ -158,7 +160,7 @@ app.get('/addMajorTeam', (req, res) => {
 */
 app.post('/addMajorTeam', (req, res) => {
 
-    Teacher.findOne({ teacherID: dict[req.sessionID] }, (err, validTeacher) => {
+    Teacher.findOne({ teacherID: req.session.ID }, (err, validTeacher) => {
         validTeacher.major_students.push(req.body.member1);
         validTeacher.major_students.push(req.body.member2);
         validTeacher.major_students.push(req.body.member3);
