@@ -29,6 +29,10 @@ app.use(session({
     saveUninitialized: true,
     resave: false
 }));
+
+app.use(express.static(__dirname + '/public'));
+
+
 app.set('view engine', 'ejs');
 
 var url = "mongodb://vara1:vara1@mycluster-shard-00-00-zucif.gcp.mongodb.net:27017,mycluster-shard-00-01-zucif.gcp.mongodb.net:27017,mycluster-shard-00-02-zucif.gcp.mongodb.net:27017/minor_final?ssl=true&replicaSet=myCluster-shard-0&authSource=admin&retryWrites=true&w=majority";
