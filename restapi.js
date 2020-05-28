@@ -125,6 +125,7 @@ app.post('/adminLogin', (req, res) => {
         else {
             //client.set(req.sessionID, validAdmin.aId);
             req.session.ID = validAdmin.aId;
+            console.log("success");
             res.send("Success");
         }
     })
@@ -225,7 +226,7 @@ app.get('/midsemEval/:teamName', (req, res) => {
         var member3 = validTeam.member3;
         var member4 = validTeam.member4;
         majorScheme.findOne({}, (err, validmajorScheme) => {
-            res.render("majorMidsem.ejs", {
+            res.render("mideval.ejs", {
                 member1: member1,
                 member2: member2,
                 member3: member3,

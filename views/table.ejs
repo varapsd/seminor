@@ -1,0 +1,42 @@
+<div ng-app="">
+	<% var members = []; %
+	<% if(member1) { members.push(member1); } %>
+	<% if(member2) { members.push(member2); } %>
+	<% if(member3) { members.push(member3); } %>
+	<% if(member4) { members.push(member4); } %>
+	<table class="table table-bordered w-auto" style="background : white"> 
+	       <thead class="thead-dark"> 
+	         <tr> 
+	           <th scope="col">Name</th>
+	           <% for(let i = 0;i<fields.length;i++) { %> 
+	           	<th scope="col"><%= fields[i] %></th> 
+	           <% } %>
+	           <th scope="col">Comment</th> 
+	           <th scope="col">Total</th> 
+	           <th scope="col"></th>
+	         </tr> 
+	       </thead> 
+	     <tbody>
+	     	<% for(let i = 0 ; i < members.length ; i++) { %>
+	     		<tr>
+	     			<th scope="row"><%= members[i] %></th>
+	     			<% for(let j=0; j<fields.length ; j++) { %>
+	     				<td><input type="number" class="form-control shadow-none" ng-model="<%= members[i]+j %>"></td>
+	     			<% } %>
+	     			<td><textarea class="form-control shadow-none" rows="1"></textarea></td>
+	     			<td>
+	     				{{ 
+	     					<% for(let k = 0; k<fields.length ; k++) { %>
+	     						<% if(k!=0) {%>
+	     							+
+	     						<% } %>
+	     						(<%= members[i]+k %>)
+	     					<% } %>
+	     				 }}
+	     			</td>
+	     			<td><button class="btn btn-success" onclick="fun1()">submit</button></td>
+	     		</tr>
+	     	<% } %>    
+	  </tbody> 
+	</table>
+</div>

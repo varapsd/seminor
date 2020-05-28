@@ -17,9 +17,9 @@ body {
 body .container {
   position: relative;
   overflow: hidden;
-  width: 350px;
-  height: 500px;
-  margin: 80px auto 0;
+  width: 500px;
+  height: 350px;
+  margin: 40px auto 0;
   background-color: #ffffff;
   -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
@@ -175,7 +175,7 @@ body .container .content input:focus {
 
 body .container .content .submit-wrap {
   position: absolute;
-  bottom: 0;
+  bottom: 25%;
   width: 100%;
 }
 body .container .content .submit-wrap a {
